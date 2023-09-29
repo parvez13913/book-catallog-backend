@@ -1,8 +1,11 @@
 import { User } from '@prisma/client';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
+import { paginationFields } from '../../constants/pagination';
 import catchAsync from '../../sheard/catchAsync';
+import pick from '../../sheard/pick';
 import sendResponse from '../../sheard/sendResponse';
+import { userFilterablefields } from './user.constants';
 import { UserService } from './user.service';
 
 const createUser = catchAsync(async (req: Request, res: Response) => {
@@ -18,13 +21,16 @@ const createUser = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllUsers = catchAsync(async (req: Request, res: Response) => {
-  const result = await UserService.getAllUsers();
+  const filters = pick(req.query, userFilterablefields);
+  const options = pick(req.query, paginationFields);
+  const result = await UserService.getAllUsers(filters, options);
 
   sendResponse<User[]>(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'User Featched Successfully!',
-    data: result,
+    meta: result.meta,
+    data: result.data,
   });
 });
 
