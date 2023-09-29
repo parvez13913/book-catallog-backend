@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Prisma, User } from '@prisma/client';
+import { paginationHelpers } from '../../../helpers/paginationHelpers';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
-import { paginationHelpers } from '../../helpers/paginationHelpers';
-import prisma from '../../sheard/prisma';
+import prisma from '../../../sheard/prisma';
 import { userFilterablefields } from './user.constants';
 import { IUserFilters } from './user.interface';
 

@@ -1,6 +1,9 @@
-import app from "./app";
-import { Server } from "http";
-import config from "./config";
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
+import { Server } from 'http';
+import app from './app';
+import config from './config';
 
 async function bootstrap() {
   try {
@@ -8,7 +11,7 @@ async function bootstrap() {
       console.log(`Server running on port ${config.port}`);
     });
   } catch (error) {
-    console.log("Fail to connect Database", error);
+    console.log('Fail to connect Database', error);
   }
 }
 

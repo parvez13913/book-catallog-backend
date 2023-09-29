@@ -1,10 +1,10 @@
 import { User } from '@prisma/client';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
-import { paginationFields } from '../../constants/pagination';
-import catchAsync from '../../sheard/catchAsync';
-import pick from '../../sheard/pick';
-import sendResponse from '../../sheard/sendResponse';
+import { paginationFields } from '../../../constants/pagination';
+import catchAsync from '../../../sheard/catchAsync';
+import pick from '../../../sheard/pick';
+import sendResponse from '../../../sheard/sendResponse';
 import { userFilterablefields } from './user.constants';
 import { UserService } from './user.service';
 
