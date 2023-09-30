@@ -8,16 +8,17 @@ datasource db {
 }
 
 model User {
-  id         String   @id @default(uuid())
-  name       String
-  email      String   @unique
-  password   String
-  role       UserRole
-  contactNo  String
-  address    String
-  profileImg String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id               String            @id @default(uuid())
+  name             String
+  email            String            @unique
+  password         String
+  role             UserRole
+  contactNo        String
+  address          String
+  profileImg       String
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  reviewAndRatings ReviewAndRating[]
 
   @@map("users")
 }
@@ -33,18 +34,33 @@ model Category {
 }
 
 model Book {
-  id              String   @id @default(uuid())
-  title           String
-  author          String
-  price           Float
-  genre           String
-  publicationDate String
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  category        Category @relation(fields: [categoryId], references: [id])
-  categoryId      String
+  id               String            @id @default(uuid())
+  title            String
+  author           String
+  price            Float
+  genre            String
+  publicationDate  String
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  category         Category          @relation(fields: [categoryId], references: [id])
+  categoryId       String
+  reviewAndRatings ReviewAndRating[]
 
   @@map("books")
+}
+
+model ReviewAndRating {
+  id        String   @id @default(uuid())
+  review    String
+  rating    Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  bookId    String
+  book      Book     @relation(fields: [bookId], references: [id])
+
+  @@map("reviewAndRatings")
 }
 
 enum UserRole {
