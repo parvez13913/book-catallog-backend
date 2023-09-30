@@ -4,6 +4,7 @@ import { Prisma } from '@prisma/client';
 import { ErrorRequestHandler, Request, Response } from 'express';
 import { ZodError } from 'zod';
 import config from '../../config';
+import ApiError from '../../errors/ApiError';
 import handleClientError from '../../errors/handleClientError';
 import handleValidationError from '../../errors/handleValidationError';
 import handleZodError from '../../errors/handleZodError';
@@ -37,6 +38,17 @@ const globalErrorHandler: ErrorRequestHandler = (
     statusCode = simplifiedError.statusCode;
     message = simplifiedError.message;
     errorMessages = simplifiedError.errorMessages;
+  } else if (error instanceof ApiError) {
+    statusCode = error?.statusCode;
+    message = error.message;
+    errorMessages = error?.message
+      ? [
+          {
+            path: '',
+            message: error?.message,
+          },
+        ]
+      : [];
   }
 
   res.status(statusCode).json({
