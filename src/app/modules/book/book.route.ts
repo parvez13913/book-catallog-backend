@@ -1,9 +1,15 @@
 import express from 'express';
+import validateRequest from '../../middlewares/validateRequest';
 import { BookController } from './book.controller';
+import { BookValidations } from './book.validation';
 
 const router = express.Router();
 
-router.post('/create-book', BookController.createBook);
+router.post(
+  '/create-book',
+  validateRequest(BookValidations.createBookZodSchema),
+  BookController.createBook,
+);
 
 router.get('/:id/category', BookController.getBookByCategoryId);
 
