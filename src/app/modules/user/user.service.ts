@@ -20,7 +20,7 @@ const getAllUsers = async (
   options: IPaginationOptions,
 ): Promise<IGenericResponse<User[]>> => {
   const { searchTerm, ...filtersData } = filters;
-  const { page, limit, skip } = paginationHelpers.calculatePagination(options);
+  const { page, size, skip } = paginationHelpers.calculatePagination(options);
 
   const andConditions = [];
 
@@ -51,7 +51,7 @@ const getAllUsers = async (
   const result = await prisma.user.findMany({
     where: whereConditions,
     skip,
-    take: limit,
+    take: size,
     orderBy:
       options.sortBy && options.sortOrder
         ? { [options.sortBy]: options.sortOrder }
@@ -65,7 +65,7 @@ const getAllUsers = async (
   return {
     meta: {
       page,
-      limit,
+      size,
       total,
     },
     data: result,
