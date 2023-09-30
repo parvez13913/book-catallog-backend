@@ -5,6 +5,8 @@ const router = express.Router();
 
 router.post('/create-book', BookController.createBook);
 
+router.get('/:id/category', BookController.getBookByCategoryId);
+
 router.get('/', BookController.getAllBooks);
 
 export const BookRoutes = router;

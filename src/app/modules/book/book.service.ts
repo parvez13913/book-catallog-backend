@@ -1,8 +1,8 @@
+import { IGenericResponse } from './../../../interfaces/common';
+import { IPaginationOptions } from './../../../interfaces/pagination';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Book, Prisma } from '@prisma/client';
 import { paginationHelpers } from '../../../helpers/paginationHelpers';
-import { IGenericResponse } from '../../../interfaces/common';
-import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../sheard/prisma';
 import { bookSearchableFields } from './book.constants';
 import { IBookFilterableFields } from './book.interface';
@@ -73,6 +73,9 @@ const getAllBooks = async (
       options.sortBy && options.sortOrder
         ? { [options.sortBy]: options.sortOrder }
         : { createdAt: 'desc' },
+    include: {
+      category: true,
+    },
   });
 
   const total = await prisma.book.count({
@@ -92,7 +95,46 @@ const getAllBooks = async (
   };
 };
 
+const getBookByCategoryId = async (
+  id: string,
+  options: IPaginationOptions,
+): Promise<IGenericResponse<Book[]>> => {
+  const { page, size, skip } = paginationHelpers.calculatePagination(options);
+  const result = await prisma.book.findMany({
+    where: {
+      category: {
+        id,
+      },
+    },
+    skip,
+    take: size,
+    include: {
+      category: true,
+    },
+  });
+
+  const total = await prisma.book.count({
+    where: {
+      category: {
+        id,
+      },
+    },
+  });
+  const totalPage = Math.ceil(total / size);
+
+  return {
+    meta: {
+      page,
+      size,
+      total,
+      totalPage,
+    },
+    data: result,
+  };
+};
+
 export const BookService = {
   createBook,
   getAllBooks,
+  getBookByCategoryId,
 };
