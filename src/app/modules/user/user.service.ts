@@ -7,14 +7,6 @@ import prisma from '../../../sheard/prisma';
 import { userFilterablefields } from './user.constants';
 import { IUserFilters } from './user.interface';
 
-const createUser = async (data: User): Promise<User> => {
-  const result = await prisma.user.create({
-    data,
-  });
-
-  return result;
-};
-
 const getAllUsers = async (
   filters: IUserFilters,
   options: IPaginationOptions,
@@ -107,7 +99,6 @@ const deleteUser = async (id: string): Promise<User | null> => {
 };
 
 export const UserService = {
-  createUser,
   getAllUsers,
   getSingleUser,
   updateUser,

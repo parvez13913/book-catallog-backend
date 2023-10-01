@@ -8,18 +8,6 @@ import sendResponse from '../../../sheard/sendResponse';
 import { userFilterablefields } from './user.constants';
 import { UserService } from './user.service';
 
-const createUser = catchAsync(async (req: Request, res: Response) => {
-  const { ...data } = req.body;
-  const result = await UserService.createUser(data);
-
-  sendResponse<User>(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'User Created Successfully!',
-    data: result,
-  });
-});
-
 const getAllUsers = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, userFilterablefields);
   const options = pick(req.query, paginationFields);
@@ -72,7 +60,6 @@ const deleteUser = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const UserController = {
-  createUser,
   getAllUsers,
   getSingleUser,
   updateUser,
