@@ -3,6 +3,7 @@ import cors from 'cors';
 import express, { Application, NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
+import { ProfileRoutes } from './app/modules/profile/profile.route';
 import router from './app/routes';
 const app: Application = express();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/v1', router);
+app.use('/api/v1/', ProfileRoutes);
 
 // GlobalErrorHandler
 app.use(globalErrorHandler);
