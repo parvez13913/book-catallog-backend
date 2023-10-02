@@ -1,3 +1,4 @@
+import { UserRole } from '@prisma/client';
 import { z } from 'zod';
 
 const createUserZodSchema = z.object({
@@ -13,7 +14,7 @@ const createUserZodSchema = z.object({
     password: z.string({
       required_error: 'Password is required',
     }),
-    role: z.string({
+    role: z.enum([UserRole.ADMIN, UserRole.CUSTOMER] as [string, ...string[]], {
       required_error: 'Role is required',
     }),
     contactNo: z.string({
