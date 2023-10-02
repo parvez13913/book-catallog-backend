@@ -5,7 +5,11 @@ import config from '../../../config';
 import ApiError from '../../../errors/ApiError';
 import { JwtHelpers } from '../../../helpers/jwtHelpers';
 import prisma from '../../../sheard/prisma';
-import { ISignInUser, ISignInUserResponse } from './auth.interface';
+import {
+  IRefreshTokenResponse,
+  ISignInUser,
+  ISignInUserResponse,
+} from './auth.interface';
 
 const createUser = async (data: User): Promise<User> => {
   const result = await prisma.user.create({
@@ -51,7 +55,44 @@ const SignInUser = async (
   };
 };
 
+const refreshToken = async (token: string): Promise<IRefreshTokenResponse> => {
+  // verify token
+  let verifiedToken = null;
+  try {
+    verifiedToken = JwtHelpers.verifiedToken(
+      token,
+      config.jwt.refresh_secret as Secret,
+    );
+  } catch (error) {
+    throw new ApiError(httpStatus.FORBIDDEN, 'Invalid Refresh Token');
+  }
+
+  const { id } = verifiedToken;
+
+  // checking deleted user's refresh token
+  const isUserExist = await prisma.user.findUnique({
+    where: {
+      id,
+    },
+  });
+  if (!isUserExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User does not exist');
+  }
+
+  // generate new token
+  const newAccessToken = JwtHelpers.createToken(
+    { id: isUserExist?.id, role: isUserExist?.role },
+    config.jwt.secret as Secret,
+    config.jwt.expires_in as string,
+  );
+
+  return {
+    accessToken: newAccessToken,
+  };
+};
+
 export const AuthService = {
   createUser,
   SignInUser,
+  refreshToken,
 };
