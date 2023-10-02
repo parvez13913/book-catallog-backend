@@ -23,8 +23,45 @@ const createOrder = async (data: any, token: string): Promise<Order> => {
   return result;
 };
 
-const getAllOrders = async (): Promise<Order[]> => {
-  const result = await prisma.order.findMany();
+const getAllOrders = async (token: string): Promise<Order[]> => {
+  const isValidUser = JwtHelpers.verifiedToken(
+    token,
+    config.jwt.secret as Secret,
+  );
+
+  if (!isValidUser) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'You are not authorized');
+  }
+
+  let result = null;
+  const { id, role } = isValidUser;
+  const isUserExist = await prisma.user.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  if (!isUserExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User does not exist !');
+  }
+
+  if (isValidUser?.id === id && role === 'ADMIN') {
+    result = await prisma.order.findMany({
+      include: {
+        user: true,
+      },
+    });
+  } else if (isValidUser?.id === id && role === 'CUSTOMER') {
+    result = await prisma.order.findMany({
+      where: { userId: isValidUser?.id },
+      include: {
+        user: true,
+      },
+    });
+  } else {
+    throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden..');
+  }
+
   return result;
 };
 

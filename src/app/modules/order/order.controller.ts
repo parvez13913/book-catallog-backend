@@ -25,7 +25,12 @@ const createOrder = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllOrders = catchAsync(async (req: Request, res: Response) => {
-  const result = await OrderService.getAllOrders();
+  const token = req.headers.authorization;
+  const result = await OrderService.getAllOrders(token as string);
+
+  if (!token) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'You are not authorized !');
+  }
 
   sendResponse<Order[]>(res, {
     statusCode: httpStatus.OK,
