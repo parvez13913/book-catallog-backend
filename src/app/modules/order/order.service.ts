@@ -65,7 +65,54 @@ const getAllOrders = async (token: string): Promise<Order[]> => {
   return result;
 };
 
+const getSingleOrder = async (orderId: string, token: string) => {
+  const isValidUser = JwtHelpers.verifiedToken(
+    token,
+    config.jwt.secret as Secret,
+  );
+
+  if (!isValidUser) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'You are not authorized');
+  }
+
+  let result = null;
+
+  const { role } = isValidUser;
+
+  const isOrderExist = await prisma.order.findFirst({
+    where: {
+      id: orderId,
+    },
+  });
+
+  if (!isOrderExist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Order does not exist !');
+  }
+
+  if (isValidUser?.id === isOrderExist?.userId && role === 'ADMIN') {
+    result = await prisma.order.findMany({
+      where: { id: isOrderExist?.id },
+      include: {
+        user: true,
+      },
+    });
+  }
+  if (isValidUser?.id === isOrderExist?.userId && role === 'CUSTOMER') {
+    result = await prisma.order.findMany({
+      where: { id: isOrderExist?.id },
+      include: {
+        user: true,
+      },
+    });
+  } else {
+    result = null;
+  }
+
+  return result;
+};
+
 export const OrderService = {
   createOrder,
   getAllOrders,
+  getSingleOrder,
 };
