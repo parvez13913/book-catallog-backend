@@ -14,9 +14,9 @@ It is a book catalog backend project.  Which use node, typescript, express.js, p
 - https://book-catallog-backend-phi.vercel.app/api/v1/auth/signup (POST)
 - https://book-catallog-backend-phi.vercel.app/api/v1/auth/signin (POST)
 - https://book-catallog-backend-phi.vercel.app/api/v1/users (GET)
-- https://book-catallog-backend-phi.vercel.app/api/v1/users/6177a5b87d32123f08d2f5d4 (Single GET) Include an id that is saved in your database
+- https://book-catallog-backend-phi.vercel.app/api/v1/users/6177a5b87d32123f08d2f5d4 (Single GET) 
 - https://book-catallog-backend-phi.vercel.app/api/v1/users/6177a5b87d32123f08d2f5d4 (PATCH)
-- https://book-catallog-backend-phi.vercel.app/api/v1/users/6177a5b87d32123f08d2f5d4 (DELETE) Include an id that is saved in your database
+- https://book-catallog-backend-phi.vercel.app/api/v1/users/6177a5b87d32123f08d2f5d4 (DELETE) 
 - https://book-catallog-backend-phi.vercel.app/api/v1/profile (GET)
 
 ### Category
