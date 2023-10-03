@@ -1,11 +1,11 @@
 # book-catallog-backend
 It is a book catalog backend project.  Which use node, typescript, express.js, prisma, and Postgresql as a database
 
-# Book Catelog Project
+# Book Catalog Project
 
 # API Documentation
 
-## Live Server Link : https://book-catallog-backend-phi.vercel.app/
+## Live Server Link: https://book-catallog-backend-phi.vercel.app/
 
 ## Application Routes
 
@@ -40,6 +40,6 @@ It is a book catalog backend project.  Which use node, typescript, express.js, p
 
 - https://book-catallog-backend-phi.vercel.app/api/v1/orders/create-order (POST)
 - https://book-catallog-backend-phi.vercel.app/api/v1/orders (GET) 
-- https://book-catallog-backend-phi.vercel.app/api/v1/orders/:orderId (GET)
+- https://book-catallog-backend-phi.vercel.app/api/v1/orders/624221e5-7995-43a3-835e-dfbf28a8eb09 (GET)
 
 
