@@ -31,10 +31,10 @@ It is a book catalog backend project.  Which use node, typescript, express.js, p
 
 - https://book-catallog-backend-phi.vercel.app/api/v1/books/create-book (POST)
 - https://book-catallog-backend-phi.vercel.app/api/v1/books (GET)
-- https://book-catallog-backend-phi.vercel.app/api/v1/books/:c081ca55-4634-47fa-92f1-e30024268c4d/category (GET)
-- https://book-catallog-backend-phi.vercel.app/api/v1/books/:id (GET)
-- https://book-catallog-backend-phi.vercel.app/api/v1/books/:id (PATCH)
-- https://book-catallog-backend-phi.vercel.app/api/v1/books/:id (DELETE)
+- https://book-catallog-backend-phi.vercel.app/api/v1/books/83714577-4e90-46e7-80f5-742b47e431d1/category (GET)
+- https://book-catallog-backend-phi.vercel.app/api/v1/books/1a58b440-7cd2-4c55-bc71-f0b1dcb01628 (GET)
+- https://book-catallog-backend-phi.vercel.app/api/v1/books/1a58b440-7cd2-4c55-bc71-f0b1dcb01628 (PATCH)
+- https://book-catallog-backend-phi.vercel.app/api/v1/books/1a58b440-7cd2-4c55-bc71-f0b1dcb01628 (DELETE)
 
 ### Orders
 
