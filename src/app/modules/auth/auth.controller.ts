@@ -4,7 +4,7 @@ import httpStatus from 'http-status';
 import config from '../../../config';
 import catchAsync from '../../../sheard/catchAsync';
 import sendResponse from '../../../sheard/sendResponse';
-import { IRefreshTokenResponse, ISignInUserResponse } from './auth.interface';
+import { IRefreshTokenResponse } from './auth.interface';
 import { AuthService } from './auth.service';
 
 const createUser = catchAsync(async (req: Request, res: Response) => {
@@ -23,7 +23,7 @@ const createUser = catchAsync(async (req: Request, res: Response) => {
 const SignInUser = catchAsync(async (req: Request, res: Response) => {
   const { ...signInData } = req.body;
   const result = await AuthService.SignInUser(signInData);
-  const { refreshToken } = result;
+  const { refreshToken, token } = result;
   // Set refreshToken into browser cookie
   const cookieOptions = {
     secure: config.env === 'production',
@@ -32,11 +32,11 @@ const SignInUser = catchAsync(async (req: Request, res: Response) => {
 
   res.cookie('refreshToken', refreshToken, cookieOptions);
 
-  sendResponse<ISignInUserResponse>(res, {
+  sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: 'User signin successfully!',
-    data: result,
+    data: token,
   });
 });
 

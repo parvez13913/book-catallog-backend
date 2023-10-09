@@ -5,11 +5,7 @@ import config from '../../../config';
 import ApiError from '../../../errors/ApiError';
 import { JwtHelpers } from '../../../helpers/jwtHelpers';
 import prisma from '../../../sheard/prisma';
-import {
-  IRefreshTokenResponse,
-  ISignInUser,
-  ISignInUserResponse,
-} from './auth.interface';
+import { IRefreshTokenResponse, ISignInUser } from './auth.interface';
 
 const createUser = async (data: User): Promise<User> => {
   const result = await prisma.user.create({
@@ -19,9 +15,7 @@ const createUser = async (data: User): Promise<User> => {
   return result;
 };
 
-const SignInUser = async (
-  payload: ISignInUser,
-): Promise<ISignInUserResponse> => {
+const SignInUser = async (payload: ISignInUser) => {
   const { email, password } = payload;
   const isUserExist = await prisma.user.findUnique({
     where: {
