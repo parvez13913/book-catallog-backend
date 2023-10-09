@@ -23,9 +23,9 @@ It is a book catalog backend project.  Which use node, typescript, express.js, p
 
 - https://book-catallog-backend-phi.vercel.app/api/v1/categories/create-category (POST)
 - https://book-catallog-backend-phi.vercel.app/api/v1/categories (GET)
-- https://book-catallog-backend-phi.vercel.app/api/v1/categories/4c28bfe1-21e2-448d-87a0-adfa7b7b80eb (Single GET) 
-- https://book-catallog-backend-phi.vercel.app/api/v1/categories/4c28bfe1-21e2-448d-87a0-adfa7b7b80eb (PATCH)
-- https://book-catallog-backend-phi.vercel.app/api/v1/categories/4c28bfe1-21e2-448d-87a0-adfa7b7b80eb (DELETE) 
+- https://book-catallog-backend-phi.vercel.app/api/v1/categories/18d45850-cca2-441a-bb20-eff1f8df2079 (Single GET) 
+- https://book-catallog-backend-phi.vercel.app/api/v1/categories/18d45850-cca2-441a-bb20-eff1f8df2079 (PATCH)
+- https://book-catallog-backend-phi.vercel.app/api/v1/categories/18d45850-cca2-441a-bb20-eff1f8df2079 (DELETE) 
 
 ### Books
 
