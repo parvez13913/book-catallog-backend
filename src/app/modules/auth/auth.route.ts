@@ -11,16 +11,8 @@ router.post(
   AuthController.createUser,
 );
 
-router.post(
-  '/signin',
-  validateRequest(AuthValidation.signInZodSchema),
-  AuthController.SignInUser,
-);
+router.post('/signin', AuthController.SignInUser);
 
-router.post(
-  '/refresh-token',
-  validateRequest(AuthValidation.refreshTokenZodSchema),
-  AuthController.refreshToken,
-);
+router.post('/refresh-token', AuthController.refreshToken);
 
 export const AuthRoutes = router;

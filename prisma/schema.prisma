@@ -67,7 +67,7 @@ model ReviewAndRating {
 model Order {
   id           String      @id @default(uuid())
   orderedBooks Json
-  status       OrderStatus @default(PENDING)
+  status       OrderStatus @default(pending)
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
   userId       String
@@ -77,12 +77,12 @@ model Order {
 }
 
 enum UserRole {
-  ADMIN
-  CUSTOMER
+  admin
+  customer
 }
 
 enum OrderStatus {
-  PENDING
-  SHIPPED
-  DELIVERED
+  pending
+  shipped
+  delivered
 }
