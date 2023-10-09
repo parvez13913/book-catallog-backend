@@ -7,7 +7,7 @@ const updateUserZodSchema = z.object({
     email: z.string().email().optional(),
     password: z.string().optional(),
     role: z
-      .enum([UserRole.ADMIN, UserRole.CUSTOMER] as [string, ...string[]])
+      .enum([UserRole.admin, UserRole.customer] as [string, ...string[]])
       .optional(),
     contactNo: z.string().optional(),
     address: z.string().optional(),
