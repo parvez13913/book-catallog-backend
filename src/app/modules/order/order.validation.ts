@@ -4,7 +4,7 @@ import { z } from 'zod';
 const createOrderZodSchema = z.object({
   body: z.object({
     status: z.enum(
-      [OrderStatus.DELIVERED, OrderStatus.PENDING, OrderStatus.SHIPPED] as [
+      [OrderStatus.delivered, OrderStatus.pending, OrderStatus.shipped] as [
         string,
         ...string[],
       ],

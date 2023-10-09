@@ -14,7 +14,7 @@ const createUserZodSchema = z.object({
     password: z.string({
       required_error: 'Password is required',
     }),
-    role: z.enum([UserRole.ADMIN, UserRole.CUSTOMER] as [string, ...string[]], {
+    role: z.enum([UserRole.admin, UserRole.customer] as [string, ...string[]], {
       required_error: 'Role is required',
     }),
     contactNo: z.string({
